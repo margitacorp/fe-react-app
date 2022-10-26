@@ -7,3 +7,16 @@ before_install:
 
 script:
   - docker run -e CI=true margitacorp/fe-react-app npm run test -- --coverage
+
+deploy:
+  - provider: elasticbeanstalk
+  - region: "us-east-1"
+  - app: "FeReactApp"
+  - env: "Fereactapp-env"
+  - bucket_name: "elasticbeanstalk-us-east-1-438318153653"
+  - bucket_path: "docker"
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
+
